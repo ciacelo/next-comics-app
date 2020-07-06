@@ -2,7 +2,7 @@
   <div>
     <header
       class="header"
-      v-bind:style="{ backgroundImage: 'linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0.98)), url(' + card.cover + ')', backgroundSize: 'cover', height: '95vh', backgroundPosition: 'top' }"
+      :style="{ backgroundImage: 'linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0.98)), url(' + thumb + ')', backgroundSize: 'cover', height: '95vh', backgroundPosition: 'top' }"
     >
       <h1 class="font-zero logo">
         Next
@@ -70,7 +70,7 @@
       </header>
       <ul class="items random">
         <li class="card2" id="cards" v-bind="card2">
-          <div class="bg-img" v-bind:style="{ backgroundImage: 'url(' + card2.cover + ')'}"></div>
+          <div class="bg-img" v-bind:style="{ backgroundImage: 'url(' + `${ imagesUrlSugestion }` + ')'}"></div>
           <button type="button" class="btn btn-outline-dark" id="invisible" v-if="visible">+</button>
           <button type="button" class="btn btn-outline-dark" @click="()=>addHq(card2)" v-else>+</button>
           <a :href="''+ card2.description">
@@ -86,8 +86,8 @@
         <h1>Mangás</h1>
       </header>
       <ul class="items items-alta">
-        <li class="card" id="cards" v-for="card in schema" :key="card.id">
-          <div class="bg-img" v-bind:style="{ backgroundImage: 'url(' + card.cover + ')' }"></div>
+        <li class="card" id="cards" v-for="(card, index) in schema" :key="card.id">
+          <div class="bg-img" v-bind:style="{ backgroundImage: 'url(' + `${ imagesUrl[index] }` + ')' }"></div>
           <button type="button" class="btn btn-outline-dark" id="invisible" v-if="visible">+</button>
           <button type="button" class="btn btn-outline-dark" @click="()=>addHq(card)" v-else>+</button>
           <a :href="''+ card.description">
@@ -112,6 +112,7 @@ import Comics from "../services/comics.service";
 import Logar from "../services/login.service";
 import User from "../services/user.service";
 import router from "../router/index.js";
+import coverImg from "../assets/slide.png"
 
 export default {
   data() {
@@ -122,18 +123,37 @@ export default {
       },
       visible: true,
       schema: "",
-      card: "",
-      card2: "",
-      temp: null
+      card: [],
+      card2: {},
+      thumb: coverImg,
+      temp: null,
+      imagesUrl: [],
+      imagesUrlSugestion: ""
     };
   },
 
   mounted: function() {
     Comics.listar()
-      .then(response => {
-        (this.schema = response.data),
-          (this.card = response.data),
-          (this.card2 = response.data);
+      .then(async response => {
+        let data = await response.data;
+        let randomItem = Math.floor(Math.random() * data.length);
+        (this.schema = data),
+          (this.card = data),
+          (this.card2 = data[randomItem]);
+          console.log(data)
+          let imgs = await new Promise((resolve, reject) => {
+            try {
+              data.map(async item => {
+                let image = await item.images[0].publicPath;
+                this.imagesUrl.push(image);
+              })
+              resolve("success");
+            } catch (error) {
+              reject(error);
+            }
+          })
+          (this.imagesUrlSugestion = this.card2.images[0].publicPath);
+          // console.log(response.data[0].images[0].publicPath)
       })
       .catch(error => console.log(error)),
       // Comics.listarRandom()
@@ -205,7 +225,8 @@ export default {
     addHq: card => {
       console.log(card);
       User.addUserHq(card, localStorage.getItem("STORAGE_KEY2"));
-    }
+    },
+
   },
 
   computed: {

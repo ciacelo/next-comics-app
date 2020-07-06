@@ -44,8 +44,8 @@
 import Vue from 'vue'
 import Antd from 'ant-design-vue'
 import Logar from '../services/login.service'
-import CardsListVue from './CardsList.vue'
-import CardsListRandom from './CardsListRandom.vue'
+import CardsListVue from '../components/CardsList'
+import CardsListRandom from '../components/CardsListRandom'
 import RegisterUser from './RegisterUser.vue'
 import router from '../router/index.js'
 

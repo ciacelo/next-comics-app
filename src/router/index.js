@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Root from '@/components/Root'
-import RandomRoot from '@/components/RandomRoot'
-import RegisterUser from '@/components/RegisterUser'
-import LoginUser from '@/components/Login'
-import UserRoot from '@/components/UserRoot'
-import AdmRoot from '@/components/AdmRoot'
-import Home from '@/components/Home'
+import Root from '../views/Root'
+import RandomRoot from '../components/RandomRoot'
+import RegisterUser from '../views/RegisterUser'
+import LoginUser from '../views/Login'
+import UserRoot from '../views/UserRoot'
+import AdmRoot from '../views/AdmRoot'
+import Home from '../views/Home'
 
 Vue.use(Router)
 

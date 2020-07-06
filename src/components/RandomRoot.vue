@@ -32,7 +32,7 @@ import Vue from 'vue'
 import Antd from 'ant-design-vue'
 import CardsListVue from './CardsList.vue'
 import CardsListRandom from './CardsListRandom.vue'
-import RegisterUser from './RegisterUser.vue'
+import RegisterUser from '../views/RegisterUser'
 import router from '../router/index.js'
 
 Vue.use(Antd)

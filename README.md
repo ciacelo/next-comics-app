@@ -1,5 +1,5 @@
 # Next-comics-app
-Aplicação web para visualização e armazenamento de quadrinhos, comics e  gibis. Desenvolvida em Vue.js + Vuex, aplicando TDD através do Jest. Este projeto tem como objetivo o estudo de novas metodologias de arquitetura de software no Front-end, como: 
+Aplicação web para visualização e leitura de quadrinhos, comics e  gibis. Desenvolvida em Vue.js + Vuex, aplicando TDD através do Jest. Este projeto tem como objetivo o estudo de novas metodologias de arquitetura de software no Front-end, como: 
 
 - Modularização
 - TDD + Jest

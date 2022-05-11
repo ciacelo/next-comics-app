@@ -4,9 +4,7 @@ Aplicação web para visualização e leitura de quadrinhos, comics e  gibis. De
 - Modularização
 - TDD + Jest
 - Styled Component
-- SOLID
 - Flux Architeture
-- Serveless
 
 > A Vue.js project
 
